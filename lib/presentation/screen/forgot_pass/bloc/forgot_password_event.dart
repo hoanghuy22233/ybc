@@ -1,0 +1,40 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+
+abstract class ForgotPasswordEvent extends Equatable {
+  const ForgotPasswordEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class UsernameChanged extends ForgotPasswordEvent {
+  final String email;
+
+  const UsernameChanged({@required this.email});
+
+  @override
+  List<Object> get props => [email];
+
+  @override
+  String toString() {
+    return 'EmailChanged{email: $email}';
+  }
+}
+
+
+class ForgotPasswordSubmitted extends ForgotPasswordEvent {
+  final String email;
+
+  const ForgotPasswordSubmitted({
+    @required this.email,
+  });
+
+  @override
+  List<Object> get props => [email];
+
+  @override
+  String toString() {
+    return 'ForgotPasswordSubmitted{email: $email}';
+  }
+}

@@ -1,0 +1,1 @@
+export 'widget_profile_detail_avatar.dart';

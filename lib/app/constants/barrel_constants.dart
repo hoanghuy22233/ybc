@@ -1,0 +1,11 @@
+export 'color/color.dart';
+export 'endpoint/app_endpoint.dart';
+export 'lang/language.dart';
+export 'network/app_network.dart';
+export 'navigator/navigator.dart';
+export 'preferences/app_preferences.dart';
+export 'string/string.dart';
+export 'string/validator.dart';
+export 'style/style.dart';
+export 'value/value.dart';
+export 'resource/barrel_resource.dart';
