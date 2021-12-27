@@ -1,7 +1,6 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:ybc/app/constants/barrel_constants.dart';
@@ -119,49 +118,6 @@ class _WidgetHomeCategoriesItemMenuState
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  Position _currentPosition;
-
-  Future _checkGps() async {
-    if (!(await Geolocator().isLocationServiceEnabled())) {
-      if (Theme.of(context).platform == TargetPlatform.android) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Không thể lấy vị trí hiện tại của bạn!"),
-              content: const Text('Hãy bật GPS và thử lại'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    final AndroidIntent intent = AndroidIntent(
-                        action: 'android.settings.LOCATION_SOURCE_SETTINGS');
-                    intent.launch();
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-  }
-
-  _getCurrentLocation() {
-    _checkGps();
-    //WidgetCircleProgress();
-    geolocator.getCurrentPosition().then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        print(
-            "aabbcc ${_currentPosition.latitude}, ${_currentPosition.longitude}");
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
 
   bool isLogin = false;
   void openLogin() async {
@@ -173,7 +129,6 @@ class _WidgetHomeCategoriesItemMenuState
   @override
   void initState() {
 
-    _getCurrentLocation();
     super.initState();
   }
 
@@ -187,87 +142,13 @@ class _WidgetHomeCategoriesItemMenuState
             crossAxisCount: 3, childAspectRatio: 1.8),
         padding: EdgeInsets.only(top: 10),
         itemBuilder: (context, index) {
-          if (index <= widget.category.length - 1) {
-            return WorkCategory(
-              menuCategories: widget.category[index],
-              onCategoryClick: this.widget.onCategoryClick,
-            );
-          } else {
-            return GestureDetector(
-              onTap: () {
-                WithAuth.isAuth(ifNotAuth: () {
-                  if (isLogin) {
-                    AppNavigator.navigateLogin();
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return WidgetDialog(
-                            title: 'Lỗi',
-                            content: "Vui lòng đăng nhập để sử dụng tính năng này.",
-                            image: 'assets/icons/warning.png',
-
-                            action2: (){
-                              AppNavigator.navigateBack();
-                            },
-                            colorButton2: Colors.blue,
-                            titleAction2: 'Trở về',
-
-                            action1: (){
-                              AppNavigator.navigateBack();
-                              AppNavigator.navigateLogin();
-                            },
-                            colorButton1: Colors.blue,
-                            titleAction1: 'Đăng nhập',
-
-                          );
-                        });
-                  }
-                }, ifAuth: () {
-                  if(_currentPosition != null){
-                    AppNavigator.navigateMapUser(lat: _currentPosition.latitude, long: _currentPosition.longitude);
-                  }
-                  else {
-                    _getCurrentLocation();
-                  }
-                });
-              },
-              child: Column(
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(500),
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Image.asset(
-                        "assets/images/map.png",
-                        height: 30,
-                        width: 30,
-                        color: AppColor.WORK_COLOR,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Tìm thành viên",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.black45, fontSize: 12),
-                  ),
-                ],
-              ),
-            );
-          }
+          return WorkCategory(
+            menuCategories: widget.category[index],
+            onCategoryClick: this.widget.onCategoryClick,
+          );
         },
         physics: NeverScrollableScrollPhysics(),
-        itemCount: widget.category.length + 1,
+        itemCount: widget.category.length,
         semanticChildCount: 3,
       ),
     );

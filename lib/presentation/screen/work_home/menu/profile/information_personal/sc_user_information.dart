@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -31,7 +30,6 @@ class _UserInformationState extends State<UserInformation>
     BlocProvider.of<ProfileBloc>(context).add(LoadProfile());
   }
 
-  static final FacebookLogin facebookSignIn = new FacebookLogin();
 
   @override
   bool get wantKeepAlive => true;
@@ -449,6 +447,6 @@ class _UserInformationState extends State<UserInformation>
   }
 
   Future<Null> _logOut() async {
-    await facebookSignIn.logOut();
+
   }
 }

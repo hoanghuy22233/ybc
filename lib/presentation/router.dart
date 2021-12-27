@@ -17,9 +17,6 @@ import 'package:ybc/presentation/screen/work_home/menu/course/courser_detail/sc_
 import 'package:ybc/presentation/screen/work_home/menu/course/courses/bloc/bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/course/search_courser/search_courser_screen.dart';
 import 'package:ybc/presentation/screen/work_home/menu/home/home_banner/bloc/home_banner_bloc.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/livestream/sc_video_media.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/map/bloc/bloc.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/map/map.dart';
 import 'package:ybc/presentation/screen/work_home/menu/home/read_more/bloc/read_more_bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/home/read_more/sc_read_more.dart';
 import 'package:ybc/presentation/screen/work_home/menu/news/category_new/bloc/bloc.dart';
@@ -126,7 +123,6 @@ class BaseRouter {
       REGISTER: (context) => RegisterScreen(),
       REGISTER_VERIFY: (context) => RegisterVerifyPage(),
       LOGIN: (context) => LoginScreen(),
-      LIST_VIDEO: (context) => VideoLiveStreamScreen(),
 
       CREATE_SAMPLE_PLAN: (context) => CreateSamplePlanScreen(),
       CREATE_SAMPLE_PLAN_TWO: (context) => CreateSamplePlanScreenTwo(),
@@ -216,12 +212,6 @@ class BaseRouter {
             ),
           ], child: ProfileDetailScreen()),
 
-      MAP_USER: (context) => MultiBlocProvider(providers: [
-            BlocProvider(
-              create: (context) =>
-                  UserLocationBloc(userRepository: userRepository),
-            ),
-          ], child: MapUser()),
 
       CATEGORY_DETAIL: (context) => MultiBlocProvider(providers: [
             BlocProvider(

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:meta/meta.dart';
 import 'package:ybc/model/api/request/barrel_request.dart';
 import 'package:ybc/model/api/request/cart_add_request.dart';
@@ -51,7 +50,6 @@ class UserRepository {
 
   UserRepository({@required this.dio});
   // final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final facebookLogin = FacebookLogin();
 
   Future<LoginRegisterResponse> loginApp(
       {@required String username,
@@ -71,17 +69,6 @@ class UserRepository {
     return client.loginFacebook(accessToken, lat ?? '10', long ?? '20');
   }
 
-  Future<String> facebookAccessToken() async {
-    facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    var accessToken = '';
-    final FacebookLoginResult result = await facebookLogin.logIn(['email']);
-    if (await facebookLogin.isLoggedIn) {
-      accessToken = result.accessToken.token;
-      print('____accessToken_______');
-      print('facebookUser.authentication $accessToken');
-    }
-    return accessToken;
-  }
 
   Future<LoginRegisterResponse> registerApp(
       {@required String name,

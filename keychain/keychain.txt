@@ -1,3 +1,0 @@
-email: gunnyga567@gmail.com	
-common_name: Nguyen Dat
-saved_to_disk

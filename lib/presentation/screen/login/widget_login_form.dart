@@ -1,9 +1,7 @@
 import 'package:android_intent/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:ybc/app/constants/barrel_constants.dart';
 import 'package:ybc/model/repo/user_repository.dart';
 import 'package:ybc/presentation/common_widgets/barrel_common_widgets.dart';
@@ -23,7 +21,6 @@ class WidgetLoginForm extends StatefulWidget {
 
 class _WidgetLoginFormState extends State<WidgetLoginForm> {
   LoginBloc _loginBloc;
-  final facebookLogin = FacebookLogin();
   UserRepository _userRepository;
 
   final TextEditingController _emailController = TextEditingController();
@@ -37,50 +34,8 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
     //_updateLocationBloc = BlocProvider.of<UpdateLocationBloc>(context);
-  }
-
-  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-  Future _checkGps() async {
-    if (!(await Geolocator().isLocationServiceEnabled())) {
-      if (Theme.of(context).platform == TargetPlatform.android) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Không thể lấy vị trí hiện tại của bạn!"),
-              content: const Text('Hãy bật GPS và thử lại'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('Ok'),
-                  onPressed: () {
-                    final AndroidIntent intent = AndroidIntent(
-                        action: 'android.settings.LOCATION_SOURCE_SETTINGS');
-                    intent.launch();
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
-    }
-  }
-
-  Position _currentPosition;
-  _getCurrentLocation() async {
-    await _checkGps();
-    geolocator.getCurrentPosition().then((Position position) {
-      setState(() {
-        _currentPosition = position;
-        print("DEVK ${_currentPosition.latitude}, ${_currentPosition.longitude}");
-      });
-    }).catchError((e) {
-      print(e);
-    });
   }
 
   @override
@@ -128,7 +83,6 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 SizedBox(
                   height: 40,
                 ),
-                _buildSocialLogin()
               ],
             ),
           ),
@@ -137,50 +91,6 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
     );
   }
 
-  _buildSocialLogin() {
-    return FractionallySizedBox(
-      widthFactor: 0.65,
-      child: Row(
-        children: [
-          Expanded(
-            child: WidgetSocialButton(
-              image: 'assets/images/img_facebook.png',
-              text: "Facebook",
-              //   text: AppLocalizations.of(context).translate('login.facebook'),
-              onTap:() async {
-                // String accessTokens = '';
-                await _getCurrentLocation();
-                if (_currentPosition != null) {
-                  _loginBloc.add(LoginFacebookEvent(
-                    //accessToken: ,
-                    lat: _currentPosition.latitude.toString(),
-                    long: _currentPosition.longitude.toString(),
-                  ));
-                  FocusScope.of(context).unfocus();
-                }
-
-                //  _loginBloc.add(LoginFacebookEvent());
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => MyApps()),
-                // );
-              },
-            ),
-          ),
-          Expanded(
-            child: WidgetSocialButton(
-              image: 'assets/images/img_google.png',
-              text: "Google",
-              //    text: AppLocalizations.of(context).translate('login.google'),
-              onTap: () {
-                _loginBloc.add(LoginGoogleEvent());
-              },
-            ),
-          )
-        ],
-      ),
-    );
-  }
 
   _buildForgotPassword(){
     return Align(
@@ -220,25 +130,13 @@ class _WidgetLoginFormState extends State<WidgetLoginForm> {
                 });
           }
           else {
-            _getCurrentLocation();
-            if (_currentPosition != null) {
-              _loginBloc.add(LoginSubmitUsernamePasswordEvent(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim(),
-                lat: _currentPosition.latitude.toString(),
-                long: _currentPosition.longitude.toString(),
-              ));
-              FocusScope.of(context).unfocus();
-            }
-            else {
-              _loginBloc.add(LoginSubmitUsernamePasswordEvent(
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim(),
-                lat: 21.007353.toString(),
-                long: 105.781346.toString(),
-              ));
-              FocusScope.of(context).unfocus();
-            }
+            _loginBloc.add(LoginSubmitUsernamePasswordEvent(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim(),
+              lat: 21.007353.toString(),
+              long: 105.781346.toString(),
+            ));
+            FocusScope.of(context).unfocus();
           }
         }
         else{

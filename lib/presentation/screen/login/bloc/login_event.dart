@@ -52,18 +52,3 @@ class LoginSubmitUsernamePasswordEvent extends LoginEvent {
   List<Object> get props => [email, password, lat, long];
 }
 
-class LoginGoogleEvent extends LoginEvent {
-  LoginGoogleEvent();
-  @override
-  List<Object> get props => [];
-}
-
-class LoginFacebookEvent extends LoginEvent {
-  final String accessToken;
-  final String lat;
-  final String long;
-  LoginFacebookEvent(
-      {@required this.accessToken, @required this.lat, @required this.long});
-  @override
-  List<Object> get props => [accessToken, lat, long];
-}

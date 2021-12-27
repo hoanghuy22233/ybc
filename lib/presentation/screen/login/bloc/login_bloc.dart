@@ -47,36 +47,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapLoginUsernameChangedToState(event.email);
     } else if (event is LoginPasswordChanged) {
       yield* _mapLoginPasswordChangedToState(event.password);
-    } else if (event is LoginFacebookEvent) {
-      yield* _mapLoginFacebookEventToState(
-          event.accessToken, event.lat, event.long);
     }
   }
 
-  Stream<LoginState> _mapLoginFacebookEventToState(
-      String accessToken, String lat, String long) async* {
-    try {
-      yield LoginState.loading();
-      var response = await _userRepository.loginFacebook(
-          accessToken: await _userRepository.facebookAccessToken(),
-          lat: lat,
-          long: long);
-
-      print('---token----');
-      print(response.data.apiToken);
-
-      if (response.status == Endpoint.SUCCESS) {
-        DioProvider.bearer(response.data.apiToken);
-        yield LoginState.success(
-            message: response.msg, token: response.data.apiToken);
-        _authenticationBloc.add(LoggedIn(response.data.apiToken));
-      } else {
-        yield LoginState.failure(message: response.msg);
-      }
-    } catch (e) {
-      yield LoginState.failure(message: "Lỗi đăng nhập");
-    }
-  }
 
   Stream<LoginState> _mapLoginSubmitUsernamePasswordEventToState(
       String username, String password, String lat, String long) async* {

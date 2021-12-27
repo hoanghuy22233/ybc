@@ -23,9 +23,6 @@ import 'package:ybc/presentation/screen/work_home/menu/course/courses/bloc/cours
 import 'package:ybc/presentation/screen/work_home/menu/course/courses/category_courser/bloc/category_course_bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/home/bloc/home_bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/home/home_category/bloc/home_category_bloc.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/map/bloc/user_location_bloc.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/map/bloc_detail_user/information_user_bloc.dart';
-import 'package:ybc/presentation/screen/work_home/menu/home/map/bloc_update_location/bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/news/news_detail/bloc/news_detail_bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/profile/history_order/bloc/history_order_bloc.dart';
 import 'package:ybc/presentation/screen/work_home/menu/profile/information_personal/bloc/profile_bloc.dart';
@@ -110,10 +107,6 @@ class MyApp extends StatefulWidget {
           ),
           BlocProvider(
             create: (context) =>
-                InformationUserBloc(homeRepository: homeRepository),
-          ),
-          BlocProvider(
-            create: (context) =>
                 ProfileDetailBloc(userRepository: userRepository),
           ),
           BlocProvider(
@@ -128,10 +121,6 @@ class MyApp extends StatefulWidget {
           ),
           BlocProvider(
             create: (context) => HomeThoughBloc(homeRepository: homeRepository),
-          ),
-          BlocProvider(
-            create: (context) =>
-                UpdateLocationBloc(userRepository: userRepository),
           ),
           BlocProvider(
             create: (context) =>
@@ -168,11 +157,6 @@ class MyApp extends StatefulWidget {
           ),
           BlocProvider(
             create: (context) => HistoryOrderBloc(
-              userRepository: userRepository,
-            ),
-          ),
-          BlocProvider(
-            create: (context) => UserLocationBloc(
               userRepository: userRepository,
             ),
           ),
