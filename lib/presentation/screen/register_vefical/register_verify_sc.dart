@@ -102,7 +102,7 @@ class RegisterVerifyPage extends StatelessWidget {
     return PinCodeTextField(
       onChanged: (changed) {},
       length: 6,
-      obsecureText: false,
+      autovalidateMode: AutovalidateMode.disabled,
       animationType: AnimationType.fade,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.box,
@@ -117,7 +117,7 @@ class RegisterVerifyPage extends StatelessWidget {
       animationDuration: Duration(milliseconds: 300),
       backgroundColor: Colors.transparent,
       enableActiveFill: true,
-      textInputType: TextInputType.phone,
+      keyboardType: TextInputType.phone,
       controller: null,
       onCompleted: (completed) {
         print("Completed: $completed");

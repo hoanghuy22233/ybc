@@ -48,7 +48,7 @@ class _WidgetAddressInputState extends State<WidgetAddressInput> {
               initialValue: widget.initialValue,
               controller: widget.controller,
               onChanged: widget.onChange,
-              autovalidate: true,
+              autovalidateMode: AutovalidateMode.always,
               maxLines: 1,
               keyboardType: widget.inputType ?? TextInputType.text,
               textAlign: TextAlign.left,

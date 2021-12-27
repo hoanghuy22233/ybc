@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -175,7 +177,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    getKeyHash();
+    !Platform.isIOS ? getKeyHash() : null;
     final config = AppConfig.of(context);
     FlutterStatusbarcolor.setStatusBarColor(Colors.blue);
     return GetMaterialApp(

@@ -45,7 +45,7 @@ class _WidgetInputState extends State<WidgetInput> {
                       onChanged: (change) {
                         widget.onChanged(change);
                       },
-                      autovalidate: widget.autovalidate ?? false,
+                      autovalidateMode: widget.autovalidate ?? false ? AutovalidateMode.always : AutovalidateMode.disabled,
                       validator: widget.validator,
                       style: AppStyle.DEFAULT_MEDIUM,
                       maxLines: widget.bigSize ? 5 : 1,

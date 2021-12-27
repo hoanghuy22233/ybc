@@ -58,7 +58,7 @@ class _WidgetLoginInputState extends State<WidgetLoginInput> {
                       onChanged: (change) {
                         widget.onChanged(change);
                       },
-                      autovalidate: widget.autovalidate ?? false,
+                      autovalidateMode: widget.autovalidate ?? false ? AutovalidateMode.always : AutovalidateMode.disabled,
                       validator: widget.validator,
                       style: AppStyle.DEFAULT_MEDIUM,
                       maxLines: widget.maxLine,
