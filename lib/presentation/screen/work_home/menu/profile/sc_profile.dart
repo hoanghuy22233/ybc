@@ -117,7 +117,7 @@ class _ProfileWorkScreenState extends State<ProfileWorkScreen>
             text: "Thông tin cá nhân",
           ),
           Tab(
-            text: "Thông tin YBC Startups",
+            text: "Thông tin VDONE Startups",
           ),
         ],
         labelStyle: AppStyle.DEFAULT_SMALL,

@@ -80,7 +80,7 @@ class ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 width: 25,
               ),
               Text(
-                "YBC Startups",
+                "VDONE Startups",
                 style: TextStyle(
                     fontSize: 24,
                     color: Colors.blue,

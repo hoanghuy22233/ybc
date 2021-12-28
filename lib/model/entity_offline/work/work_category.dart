@@ -16,7 +16,7 @@ List<WorkCategoryItem> allWork =[
   ),
   WorkCategoryItem(
       image: 'assets/images/ic_media.png',
-      title: 'YBC Media'
+      title: 'VDONE Media'
   ),
   WorkCategoryItem(
       image: 'assets/images/ic_contract.png',

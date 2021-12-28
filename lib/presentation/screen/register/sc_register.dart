@@ -62,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   height: 70,
                   width: 70),
               SizedBox(width: 25,),
-              Text("YBC Startups", style: TextStyle(
+              Text("VDONE Startups", style: TextStyle(
                   fontSize: 24,
                   color: Colors.blue,
                   fontFamily: 'Righteous'

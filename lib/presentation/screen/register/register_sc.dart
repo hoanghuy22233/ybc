@@ -168,7 +168,7 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
                           height: 90,
                           width: 90),
                       SizedBox(width: 25,),
-                      Text("YBC Startups", style: TextStyle(
+                      Text("VDONE Startups", style: TextStyle(
                           fontSize: 24,
                           color: Colors.blue,
                           fontFamily: 'Righteous'),

@@ -65,7 +65,7 @@ class _YBCStartupScreenState extends State<YBCStartupScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("YBC Startups",
+                    Text("VDONE Startups",
                         style: AppStyle.DEFAULT_MEDIUM_BOLD.copyWith()),
                     SizedBox(
                       width: 10,
